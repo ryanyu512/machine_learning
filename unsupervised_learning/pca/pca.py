@@ -65,6 +65,19 @@ k            (in): number of features to be extracted
 reduced_data(out): data after dimension reduction
 '''
 def transform_data(data, k):
+    '''
+    #procedures of pca
+    #step 1: center data 
+    #step 2: compute covariance matrix of centered data
+    #step 3: compute eigen vectors and eigen values of covariance matrix
+             by SVD
+    #step 4: sort eigen vectors based on magnitude of eigen values 
+             (from small to large)
+    #step 5: select top k eigen vectors as principle components to represent 
+             data in a lower - dimensional space
+    #step 6: transform data using top k eigen vectors 
+    '''
+    
     cov = est_cov(data)
     eig_vec, eig_val = est_eig(cov)
     s_eig_vec, s_ind = sort_eig_vec(eig_vec, eig_val)
@@ -93,7 +106,6 @@ def gaussian_sample_data(mu, cov, N = 1000):
 mu = np.array([2, 2])
 
 #define covariance matrix
-
 #eig values affects the spread of data along axis i
 eig_val1 = np.sqrt(5)
 eig_val2 = np.sqrt(1)
