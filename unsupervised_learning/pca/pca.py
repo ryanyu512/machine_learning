@@ -72,7 +72,7 @@ def transform_data(data, k):
     #step 3: compute eigen vectors and eigen values of covariance matrix
              by SVD
     #step 4: sort eigen vectors based on magnitude of eigen values 
-             (from small to large)
+             (from larger to smaller)
     #step 5: select top k eigen vectors as principle components to represent 
              data in a lower - dimensional space
     #step 6: transform data using top k eigen vectors 
