@@ -8,6 +8,7 @@ def plot_decision_regions(sample, labels, clf, threshold, resolution=0.02):
     sample     (in): data to be plotted
     labels     (in): the label of data
     clf        (in): classifier object
+    threshold  (in): threshold to determine if it is class 0 or 1
     resolution (in): the resolution of meshgrid 
     '''
     # setup marker generator and color map
