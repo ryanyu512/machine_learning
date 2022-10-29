@@ -1,19 +1,15 @@
 #%%
-import sys
-sys.path.append('/Users/r/Desktop/git_repository/machine_learning/visualization')
-
-#%%
 import numpy as np
 import matplotlib.pyplot as plt
-from linear_svm import gaussian_sample_data
-from linear_svm import linear_svm
-from visualize import plot_decision_regions
+from visualization.visualize import plot_decision_regions
+from sampling.sampling import gaussian_sample_data
+from supervised_learning.mlp.mlp import logistic_regression
 #%%
 #purpose: sampling two classes based on gaussian_sample_data
 
 #define means of two clusters
-mu1 = [-10, -10]
-mu2 = [ 10,  10]
+mu1 = [-50, -50]
+mu2 = [-30, -30]
 
 #define covariance matrix
 #eig values affects the spread of data along axis i
@@ -35,12 +31,13 @@ sample2 = gaussian_sample_data(mu2, cov2, 100)
 #integrate two class
 sample = np.concatenate((sample1, sample2), axis = 0)
 labels = np.zeros(sample.shape[0])
-labels[0:int(sample.shape[0]/2)] = -1
+labels[0:int(sample.shape[0]/2)] = 0
 labels[int(sample.shape[0]/2):sample.shape[0]] = 1
 print("shape of sample: {}".format(sample.shape))
 print("shape of labels: {}".format(labels.shape))
-print("# of -1s: {}".format(len(labels[labels == -1])))
+print("# of  0s: {}".format(len(labels[labels ==  0])))
 print("# of  1s: {}".format(len(labels[labels ==  1])))
+
 #%% 
 #purpose: plot two classes for checking correctness
 
@@ -48,22 +45,22 @@ plt.scatter(sample1[:,0], sample1[:,1], c = 'r')
 plt.scatter(sample2[:,0], sample2[:,1], c = 'g')
 
 plt.show()
-# %% 
-# define hyper - parameters of linear SVM 
-# number of iterations
-N_iter = 10000
-#learning rate 
-lr = 1e-5
-l  = 1
 # %%
-# fit linear svm
-lin_svm = linear_svm(lr, l, N_iter)
-lin_svm.fit(sample, labels)
+#define hyper - parameters of logistic regression
+lr = 1e-2
+N_iter = 10000
 
 # %%
-# plot loss curve 
-plt.plot(lin_svm.loss)
-#plt.ylim([0, 0.2])
+print(sample.shape)
+net = logistic_regression(lr, N_iter)
+net.fit(sample, labels)
+#%%
+print(net.w)
 # %%
-plot_decision_regions(sample, labels, lin_svm)
+# plot loss curve 
+plt.plot(net.loss)
+#%%
+threshold = 0.5
+plot_decision_regions(sample, labels, net, threshold)
+
 # %%

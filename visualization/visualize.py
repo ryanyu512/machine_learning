@@ -2,7 +2,7 @@ from matplotlib.colors import ListedColormap
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plot_decision_regions(sample, labels, clf, resolution=0.02):
+def plot_decision_regions(sample, labels, clf, threshold, resolution=0.02):
     '''
     purpose    (in): plot decision bounary
     sample     (in): data to be plotted
@@ -20,7 +20,7 @@ def plot_decision_regions(sample, labels, clf, resolution=0.02):
     y_min, y_max = sample[:, 1].min() - 1, sample[:, 1].max() + 1
     xx1, xx2 = np.meshgrid(np.arange(x_min, x_max, resolution), np.arange(x_min, x_max, resolution))
     Z = clf.predict(np.array([xx1.ravel(), xx2.ravel()]).T)
-    Z = np.where(Z >= 0, 1, -1)
+    Z = np.where(Z >= threshold, 1, 0)
     Z = Z.reshape(xx1.shape)
     plt.contourf(xx1, xx2, Z, alpha=0.4, cmap=cmap)
     plt.xlim(xx1.min(), xx1.max())

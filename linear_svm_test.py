@@ -1,13 +1,10 @@
 #%%
-#import sys
-#sys.path.append('/Users/r/Desktop/git_repository/machine_learning/visualization')
-
-#%%
 import numpy as np
 import matplotlib.pyplot as plt
-from supervised_learning.svm.linear_svm import gaussian_sample_data
 from supervised_learning.svm.linear_svm import linear_svm
 from visualization.visualize import plot_decision_regions
+from sampling.sampling import gaussian_sample_data
+
 #%%
 #purpose: sampling two classes based on gaussian_sample_data
 
